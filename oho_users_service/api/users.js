@@ -39,8 +39,6 @@ module.exports.submit = (event, context, callback) => {
         })
       })
     });
-};
-
 
 const submitUserP = user => {
   console.log('Submitting user');
@@ -61,6 +59,7 @@ const userInfo = (forename, surname, email) => {
     email: email,
     submittedAt: timestamp,
     updatedAt: timestamp,
+  };
   };
 };
 
@@ -138,3 +137,60 @@ dynamoDb.get(params).promise()
       return;
     });
 };
+
+module.exports.update = (event, context, callback) => {
+  const requestBody = JSON.parse(event.body);
+  const forename = requestBody.forename;
+  const surname = requestBody.surname;
+  const email = requestBody.email;
+
+  if (typeof forename !== 'string' || typeof surname !== 'string' || typeof email !== 'string') {
+    console.error('Validation Failed');
+    callback(new Error('Couldn\'t submit user because of validation errors. Did you submit all as strings?'));
+    return;
+  }
+
+  updateUserP(userInfo(forename, surname, email))
+    .then(res => {
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: `Sucessfully updated user with email ${email}`,
+          userId: res.id
+        })
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      callback(null, {
+        statusCode: 500,
+        body: JSON.stringify({
+          message: `Unable to update user with email ${email}`, 
+          error: err
+        })
+      })
+    });
+
+const updateUserP = user => {
+  console.log('Submitting user');
+  const userInfo = {
+    TableName: process.env.USERS_TABLE,
+    Item: user,
+  };
+  return dynamoDb.update(userInfo).promise()
+    .then(res => user);
+};
+
+const userInfo = (forename, surname, email) => {
+  const timestamp = new Date().getTime();
+  return {
+    id: uuid.v1(),
+    forename: forename,
+    surname: surname,
+    email: email,
+    updatedAt: timestamp,
+  };
+  };
+};
+  
+

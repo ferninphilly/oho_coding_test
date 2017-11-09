@@ -75,3 +75,9 @@ functions:
       - http:
           path: users/{id}
           method: get
+  updateUsers:
+    handler: api/users.update
+    events:
+      -http:
+          path: users/{id}
+          method: post
