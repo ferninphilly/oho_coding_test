@@ -19,6 +19,9 @@ Currently I have the api gateway running here:
   DELETE - https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
   GET - https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
 
+For the last one- that is for individual data. 
+To update- just POST the update and the dynamodb should overwrite. 
+
 So if you would like to, for instance, submit someone you can do this: 
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
