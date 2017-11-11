@@ -189,7 +189,7 @@ const userInfo = (forename, surname, email) => {
     surname: surname,
     email: email,
     updatedAt: timestamp,
-  };
+    };
   };
 };
   

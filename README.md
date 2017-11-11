@@ -1,6 +1,6 @@
 # Welcome to my node.js REST API
 
-## Basic Architecture:
+##  Basic Architecture:
 This project is a submission for Holiday Extras. It was working as of 9 November, 2017. 
 The project is build on AWS using three basic AWS functions: API Gateway, Lambda, and DynamoDB. 
 Here is the basic image: 

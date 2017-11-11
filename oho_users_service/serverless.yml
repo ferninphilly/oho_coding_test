@@ -78,6 +78,6 @@ functions:
   updateUsers:
     handler: api/users.update
     events:
-      -http:
+      - http:
           path: users/{id}
           method: post
