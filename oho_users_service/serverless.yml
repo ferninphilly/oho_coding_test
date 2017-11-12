@@ -67,7 +67,7 @@ functions:
     description: Delete a user
     events:
       - http:
-          path: users
+          path: users/{id}
           method: delete
   userDetails:
     handler: api/users.get
