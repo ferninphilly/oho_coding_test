@@ -156,7 +156,7 @@ module.exports.update = (event, context, callback) => {
         statusCode: 200,
         body: JSON.stringify({
           message: `Sucessfully updated user with email ${email}`,
-          userId: res.id
+          userId: res.id,
         })
       });
     })
@@ -172,7 +172,7 @@ module.exports.update = (event, context, callback) => {
     });
 
 const updateUserP = user => {
-  console.log('Submitting user');
+  console.log('Updating user');
   const userInfo = {
     TableName: process.env.USERS_TABLE,
     Item: user,
@@ -201,7 +201,7 @@ module.exports.update = (event, context, callback) => {
 
   if (typeof forename !== 'string' || typeof surname !== 'string' || typeof email !== 'string') {
     console.error('Validation Failed');
-    callback(new Error('Couldn\'t submit user because of validation errors. Did you submit all as strings?'));
+    callback(new Error('Couldn\'t update user because of validation errors. Did you submit all as strings?'));
     return;
   }
 
