@@ -14,10 +14,34 @@ The idea here is that the user hits the api gateway and the lambda function take
 This data will persist per the instructions- though normally DynamoDB data does not last as long.
 
 Currently I have the api gateway running here: 
-  POST - **https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users**
-  GET -**https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users**
-  DELETE - https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
-  GET - https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+- **POST:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
+  - Send a POST request to that endpoint to add data. Use a CURL command such - as  
+  - ```
+    curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
+    ``` 
+- **GET:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
+  - Send a GET request to this endpoint to get a complete list of all users 
+  - in the database.
+  - ``` 
+      curl https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
+     ```
+- **DELETE:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+  - Send a DELETE request to this endpoint to delete 
+  - ```
+    curl -X DELETE https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+    ```
+- **GET:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+  - Send a GET request to get an individual record where {id} is the User ID
+  - ```
+    curl -X GET https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+    ```
+- **POST:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+  - Send a POST request with the {id} of the user you want to update and a JSON array in the body of what you'd like to update. 
+  -  ```
+    curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
+    ```
+
+  
 
 For the last one- that is for individual data. 
 To update- just POST the update and the dynamodb should overwrite. 
