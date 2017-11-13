@@ -153,9 +153,7 @@ module.exports.update = (event, context, callback) => {
 var params = {
     TableName: process.env.USERS_TABLE,
     Key:{
-        "forename": forename,
-        "surname": surname,
-        "email": email
+        id: event.pathParameters.id, 
     },
     UpdateExpression: "set users_prod.forename = :fn, users_prod.surname = :sn, users_prod.email = :em",
     ExpressionAttributeValues:{
