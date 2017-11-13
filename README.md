@@ -11,6 +11,9 @@ There are four of them: Update, delete, get, submit (or CRUD if you prefer).
 
 The idea here is that the user hits the api gateway and the lambda function takes over and writes data sent in the POST/GET/DELETE/UPDATE body to the [DynamoDB](https://aws.amazon.com/dynamodb/) table (a nosql AWS solution). 
 
+Here is what the architecture will look like with the testing portion of the aws api gateway. The advantage here is that this method will expand/contract as necessary to handle the traffic from external sources. 
+![apigateway](https://github.com/ferninphilly/oho_coding_test/blob/master/screenShotApiGateway.png "API Gateway")
+
 This data will persist per the instructions- though normally DynamoDB data does not last as long.
 
 Currently I have the api gateway running here: 
@@ -41,10 +44,6 @@ Currently I have the api gateway running here:
   ```
     curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
     ```
-
-Here's a basic look at the setup of how my lambda function is being used:
-
-![apigateway](https://github.com/ferninphilly/oho_coding_test/blob/master/screenShotApiGateway.png "API Gateway")
 
 And here is a basic look at the DynamoDB table containing the data: 
 ![dynamodb](https://github.com/ferninphilly/oho_coding_test/blob/master/DynamoDBTableImg.png)
