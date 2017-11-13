@@ -42,13 +42,6 @@ Currently I have the api gateway running here:
     curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
     ```
 
-For the last one- that is for individual data. 
-To update- just POST the update and the dynamodb should overwrite. 
-
-So if you would like to, for instance, submit someone you can do this: 
-```
-curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
-```
 Here's a basic look at the setup of how my lambda function is being used:
 
 ![apigateway](https://github.com/ferninphilly/oho_coding_test/blob/master/screenShotApiGateway.png "API Gateway")
