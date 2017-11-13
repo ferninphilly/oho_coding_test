@@ -37,7 +37,7 @@ Currently I have the api gateway running here:
     ```
 - **POST:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
   - Send a POST request with the {id} of the user you want to update and a JSON array in the body of what you'd like to update. 
-  -  ```
+  -  
   ```
     curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
     ```
@@ -49,6 +49,9 @@ So if you would like to, for instance, submit someone you can do this:
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
 ```
+Here's a basic look at the setup of how my lambda function is being used:
+
+![apigateway][ScreenShotApiGateway.png]
 
 ##Deployment
 I have utilized the [serverless architecture](https://serverless.com/) for deployment (hence you will see the serverless yaml in the project). If you want to make your own project utilizing these functions you can just run 

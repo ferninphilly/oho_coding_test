@@ -143,6 +143,7 @@ module.exports.update = (event, context, callback) => {
   const forename = requestBody.forename;
   const surname = requestBody.surname;
   const email = requestBody.email;
+  const timestamp = new Date().getTime();
 
   if (typeof forename !== 'string' || typeof surname !== 'string' || typeof email !== 'string') {
     console.error('Validation Failed');
@@ -155,16 +156,17 @@ var params = {
     Key:{
         id: event.pathParameters.id, 
     },
-    UpdateExpression: "set users_prod.forename = :fn, users_prod.surname = :sn, users_prod.email = :em",
+    UpdateExpression: "set users_prod.forename = :fn, users_prod.surname = :sn, users_prod.email = :em, users_prod.updated_at = :ts", 
     ExpressionAttributeValues:{
         ":fn": forename,
         ":sn": surname,
-        ":em": email
+        ":em": email,
+        ":ts": timestamp
     },
     ReturnValues:"updated user"
 };
 
-  updateUserP(userInfo(forename, surname, email))
+  updateUserP(params)
     .then(res => {
       callback(null, {
         statusCode: 200,
@@ -189,22 +191,12 @@ const updateUserP = user => {
   console.log('Updating user');
   const userInfo = {
     TableName: process.env.USERS_TABLE,
-    Item: user,
+    Item: params,
   };
-  return dynamoDb.update(userInfo).promise()
-    .then(res => user);
-};
-
-const userInfo = (forename, surname, email) => {
-  const timestamp = new Date().getTime();
-  return {
-    forename: forename,
-    surname: surname,
-    email: email,
-    updatedAt: timestamp,
-    };
+  return dynamoDb.update(params).promise()
+    .then(res => params);
   };
-};
+}
 
 
 
