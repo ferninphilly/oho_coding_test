@@ -38,6 +38,7 @@ Currently I have the api gateway running here:
 - **POST:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
   - Send a POST request with the {id} of the user you want to update and a JSON array in the body of what you'd like to update. 
   -  ```
+  ```
     curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users/{id}
     ```
 
