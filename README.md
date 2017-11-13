@@ -51,7 +51,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","sur
 ```
 Here's a basic look at the setup of how my lambda function is being used:
 
-![apigateway][ScreenShotApiGateway.png]
+![apigateway](https://github.com/ferninphilly/oho_coding_test/blob/master/screenShotApiGateway.png "API Gateway")
 
 ##Deployment
 I have utilized the [serverless architecture](https://serverless.com/) for deployment (hence you will see the serverless yaml in the project). If you want to make your own project utilizing these functions you can just run 
