@@ -53,6 +53,9 @@ Here's a basic look at the setup of how my lambda function is being used:
 
 ![apigateway](https://github.com/ferninphilly/oho_coding_test/blob/master/screenShotApiGateway.png "API Gateway")
 
+And here is a basic look at the DynamoDB table containing the data: 
+![dynamodb](https://github.com/ferninphilly/oho_coding_test/blob/master/DynamoDBTableImg.png)
+
 ##Deployment
 I have utilized the [serverless architecture](https://serverless.com/) for deployment (hence you will see the serverless yaml in the project). If you want to make your own project utilizing these functions you can just run 
 ```
