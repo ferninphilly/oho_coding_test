@@ -138,65 +138,61 @@ dynamoDb.get(params).promise()
     });
 };
 
-module.exports.update = (event, context, callback) => {
-  const requestBody = JSON.parse(event.body);
-  const forename = requestBody.forename;
-  const surname = requestBody.surname;
-  const email = requestBody.email;
-  const timestamp = new Date().getTime();
+'use strict';
 
-  if (typeof forename !== 'string' || typeof surname !== 'string' || typeof email !== 'string') {
+const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+module.exports.update = (event, context, callback) => {
+  const timestamp = new Date().getTime();
+  const data = JSON.parse(event.body);
+
+  // validation
+  if (typeof data.forename !== 'string' || typeof data.surname !== 'string' || typeof data.email !== 'string') {
     console.error('Validation Failed');
-    callback(new Error('Couldn\'t update user because of validation errors. Did you submit all as strings?'));
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Couldn\'t update the user due to bad type entry'
+    });
     return;
   }
 
-var params = {
+  const params = {
     TableName: process.env.USERS_TABLE,
-    Key:{
-        id: event.pathParameters.id, 
+    Key: {
+      id: event.pathParameters.id,
     },
-    UpdateExpression: "set users_prod.forename = :fn, users_prod.surname = :sn, users_prod.email = :em, users_prod.updated_at = :ts", 
-    ExpressionAttributeValues:{
-        ":fn": forename,
-        ":sn": surname,
-        ":em": email,
-        ":ts": timestamp
+    ExpressionAttributeValues: {
+      ':forename': data.forename,
+      ':surname': data.surname,
+      ':email': data.email,
+      ':updatedAt': timestamp,
     },
-    ReturnValues:"updated user"
+    UpdateExpression: 'SET forename = :forename, surname = :surname, email=:email, updatedAt = :updatedAt',
+    ReturnValues: 'ALL_NEW',
+  };
+
+  // update the todo in the database
+  dynamoDb.update(params, (error, result) => {
+    // handle potential errors
+    if (error) {
+      console.error(error);
+      callback(null, JSON.stringify({
+        statusCode: error.statusCode || 501,
+        headers: { 'Content-Type': 'text/plain' },
+        body: 'Couldn\'t update the user due to ' + error,
+        })
+      );
+      return;
+    }
+
+    // create a response
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(result.Attributes),
+    };
+    callback(null, response);
+  });
 };
-
-  updateUserP(params)
-    .then(res => {
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-          message: `Sucessfully updated user with email ${email}`,
-          userId: res.id,
-        })
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      callback(null, {
-        statusCode: 500,
-        body: JSON.stringify({
-          message: `Unable to update user with email ${email}`, 
-          error: err
-        })
-      })
-    });
-
-const updateUserP = user => {
-  console.log('Updating user');
-  const userInfo = {
-    TableName: process.env.USERS_TABLE,
-    Item: params,
-  };
-  return dynamoDb.update(params).promise()
-    .then(res => params);
-  };
-}
-
-
-

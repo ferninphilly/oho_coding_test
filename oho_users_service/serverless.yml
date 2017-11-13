@@ -18,6 +18,7 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:DeleteItem
+        - dynamodb:UpdateItem
       Resource: "*"
 
 #Let's create ourselves a dynamodb table! 
