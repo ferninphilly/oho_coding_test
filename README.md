@@ -23,8 +23,7 @@ Currently I have the api gateway running here:
     curl -H "Content-Type: application/json" -X POST -d '{"forename":"Fernando","surname": "Pombeiro", "email": "fernincornwall@gmailcom"}' https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
     ``` 
 - **GET:** https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
-  - Send a GET request to this endpoint to get a complete list of all users 
-  - in the database.
+  - Send a GET request to this endpoint to get a complete list of all users in the database.
   - ``` 
       curl https://msufp83hvf.execute-api.eu-west-2.amazonaws.com/prod/users
      ```
