@@ -200,7 +200,6 @@ const updateUserP = user => {
 const userInfo = (forename, surname, email) => {
   const timestamp = new Date().getTime();
   return {
-    id: uuid.v1(),
     forename: forename,
     surname: surname,
     email: email,
