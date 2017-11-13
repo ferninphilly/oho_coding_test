@@ -174,7 +174,7 @@ module.exports.update = (event, context, callback) => {
     ReturnValues: 'ALL_NEW',
   };
 
-  // update the todo in the database
+  // update the user in the database
   dynamoDb.update(params, (error, result) => {
     // handle potential errors
     if (error) {
